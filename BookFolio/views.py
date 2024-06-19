@@ -51,7 +51,7 @@ def gallery(request):
     # return render(request,"gallery.html")
 def gallery1(request,slug):
     # newsDetail = News.objects.get(news_slug=slug)
-    booksData = BooksDetail.objects.get(books_slug = slug)
+    booksData = BooksDetail.objects.get(book_slug = slug)
 
     data={'booksData':booksData}
 
