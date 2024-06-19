@@ -6,6 +6,6 @@ class BooksDetail(models.Model):
     book_des = models.TextField()
     book_author = models.CharField(max_length=50)
     book_releaseDate = models.CharField(max_length=20)
-    news_slug = models.FileField( upload_to="books/", max_length=250,null=True,default=None)
+    # book_slug = models.FileField( upload_to="books/", max_length=250,null=True,default=None)
 
 # Create your models here.
