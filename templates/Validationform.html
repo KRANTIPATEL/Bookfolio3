@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<main id="main" data-aos="fade" data-aos-delay="1500">
+    <div class="page-header d-flex align-items-center">
+        <div class="container position-relative">
+          <div class="row d-flex justify-content-center">
+            <div class="col-lg-6 text-center">
+              <h2>ValidationForm</h2>  
+            </div>
+          </div>
+        </div>
+      </div>
+
+<div class ="row">
+    <div class ="col-6">
+        <form  method ="post">
+            {% csrf_token %}
+
+            {% if error %}
+
+            <div class = "alert alert-danger">Enter Value First</div>
+
+            {% endif %}
+
+            {% if error2 %}
+
+            <div class = "alert alert-danger">Enter Number Only</div>
+
+            {% endif %}
+
+            <label>Value 1</label>
+            <input type="text" name="num1"    class = "form-control"/>
+
+            <label>Select Operator</label>
+            <select name = "opr" class ="form-control">
+                <option value="+">+</option>
+                <option value="-">-</option>
+                <option value="*">*</option>
+                <option value="/">/</option>
+            </select>
+            <label>Value 2</label>
+            <input type="text" name="num2"  class = "form-control"/>
+            <button type = "submit">Calculate</button></br>
+
+            <label>Output</label>
+            <input type = "text"  class ="form-control">
+
+        
+
+
+        </form>
+
+    </main>
+
+
+
+{% endblock content %}
