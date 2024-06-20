@@ -19,23 +19,31 @@ def aboutUs(request):
 def signin(request):
     error = False
     datasignup={}
+    booksData = BooksDetail.objects.all()
 
     try:
         datasignin = LoginDetails.objects.all()
         if request.method == "POST":
             email1 = request.POST['email1']
             pwd1 = request.POST['pwd1']
-            datasignup = {'email1':email1,'pwd':pwd1 }
             
             for n in datasignin:
-                if email1==n.login_email and pwd1 == n.login_pwd:
+                if email1 == n.login_email and pwd1 == n.login_pwd:
                     error = True
-                    return render(request,"gallery.html",{'error':error})
-                else:
-                    return render(request,"signinpage.html",{'error':error})
 
 
-        return render(request,"signinpage.html",{'error':not error})
+            if error :
+                return render(request,"gallery.html",{'booksData':booksData})
+            else:
+                return render(request,"signinpage.html",{'booksData':booksData,'error':error})
+
+                # if email1 != n.login_email or pwd1 != n.login_pwd:
+                #     return render(request,"signinpage.html",{'error':error})
+
+
+
+
+        return render(request,"signinpage.html",{'error': error})
 
     except:
         pass
@@ -59,18 +67,24 @@ def gallery1(request,slug):
     return render(request,"gallery1.html",data)
 def signup(request):
 
-    try:
+        booksData = BooksDetail.objects.all()
+        datasignin = LoginDetails.objects.all()
+
         if request.method == "POST":
             email = request.POST['email']
             pwd = request.POST['pwd']
-            
-        en = LoginDetails(login_email=email,login_pwd=pwd)
-        en.save()
+
+            for n in datasignin:
+                if email != n.login_email and pwd != n.login_pwd:
+                    en = LoginDetails(login_email=email,login_pwd=pwd)
+                    en.save()
+                    return render(request,"gallery.html",{'booksData':booksData})
+                
+           
 
         
-    except:
-        pass
-    return render(request,"signin.html")
+   
+        return render(request,"signup.html",{'booksData':booksData})
 
 def course(request):
     return HttpResponse("Heres Your CourseList")
