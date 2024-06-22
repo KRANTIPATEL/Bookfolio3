@@ -128,9 +128,10 @@ def homePage(request):
     #         {'name':'romio','phone':'4207864207'}
     #     ]
     # }
+    booksData = BooksDetail.objects.all()
 
     newsdata = News.objects.all()
-    data = { 'newsdata':newsdata
+    data = { 'newsdata':newsdata,'booksData':booksData
     }
 
     return render(request,"index.html",data)

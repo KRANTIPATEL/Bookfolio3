@@ -32,25 +32,28 @@
 
         <!-- ======= Gallery Section ======= -->
         <section id="gallery" class="gallery">
-            <div class="container-fluid">
 
+            <div class="container-fluid">
                 <div class="row gy-4 justify-content-center">
+                    {% for n in booksData|slice:":8" %}
+
                     <div class="col-xl-3 col-lg-4 col-md-6">
                         <div class="gallery-item h-100">
-                            <img src="https://i0.wp.com/m.media-amazon.com/images/I/51c4H3VBciL.jpg?resize=500%2C500&ssl=1" class="img-fluid" alt="">
+                            <img src="{{n.book_imglink}}" class="img-fluid" alt="">
                             <div class="gallery-links d-flex align-items-center justify-content-center">
-                                <a href="https://i0.wp.com/m.media-amazon.com/images/I/51c4H3VBciL.jpg?resize=500%2C500&ssl=1" title="Gallery 1" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>
+                                <a href="{{booksData.book_imglink}}" title="Gallery 1" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>
                                 {% comment %} <a href="gallery-single.html" class="details-link"><i class="bi bi-link-45deg"></i></a> {% endcomment %}
                             </div>
                         </div>
                     </div>
+                    {% endfor %}
                     <!-- End Gallery Item -->
-                    <div class="col-xl-3 col-lg-4 col-md-6">
+                    {% comment %} <div class="col-xl-3 col-lg-4 col-md-6">
                         <div class="gallery-item h-100">
                             <img src="https://i0.wp.com/m.media-amazon.com/images/I/51jURVUWapL.jpg?resize=500%2C500&ssl=1" class="img-fluid" alt="">
                             <div class="gallery-links d-flex align-items-center justify-content-center">
                                 <a href="https://i0.wp.com/m.media-amazon.com/images/I/51jURVUWapL.jpg?resize=500%2C500&ssl=1" title="Gallery 2" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>
-                                {% comment %} <a href="gallery-single.html" class="details-link"><i class="bi bi-link-45deg"></i></a>  {% endcomment %}
+                                <a href="gallery-single.html" class="details-link"><i class="bi bi-link-45deg"></i></a> 
                             </div>
                         </div>
                     </div>
@@ -60,7 +63,7 @@
                             <img src="https://i0.wp.com/m.media-amazon.com/images/I/51l4HGsEqyL.jpg?resize=500%2C500&ssl=1" class="img-fluid" alt="">
                             <div class="gallery-links d-flex align-items-center justify-content-center">
                                 <a href="https://i0.wp.com/m.media-amazon.com/images/I/51l4HGsEqyL.jpg?resize=500%2C500&ssl=1" title="Gallery 3" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>
-                                {% comment %} <a href="gallery-single.html" class="details-link"><i class="bi bi-link-45deg"></i></a>  {% endcomment %}
+                                <a href="gallery-single.html" class="details-link"><i class="bi bi-link-45deg"></i></a> 
                             </div>
                         </div>
                     </div>
@@ -70,7 +73,7 @@
                             <img src="https://i0.wp.com/m.media-amazon.com/images/I/51FunaYxc9L.jpg?resize=500%2C500&ssl=1" class="img-fluid" alt="">
                             <div class="gallery-links d-flex align-items-center justify-content-center">
                                 <a href="https://i0.wp.com/m.media-amazon.com/images/I/51FunaYxc9L.jpg?resize=500%2C500&ssl=1" title="Gallery 4" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>
-                                {% comment %} <a href="gallery-single.html" class="details-link"><i class="bi bi-link-45deg"></i></a>  {% endcomment %}
+                                <a href="gallery-single.html" class="details-link"><i class="bi bi-link-45deg"></i></a> 
                             </div>
                         </div>
                     </div>
@@ -80,7 +83,7 @@
                             <img src="https://i0.wp.com/m.media-amazon.com/images/I/61atv8Q26iL.jpg?resize=500%2C500&ssl=1" class="img-fluid" alt="">
                             <div class="gallery-links d-flex align-items-center justify-content-center">
                                 <a href="https://i0.wp.com/m.media-amazon.com/images/I/61atv8Q26iL.jpg?resize=500%2C500&ssl=1" title="Gallery 5" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>
-                                {% comment %} <a href="gallery-single.html" class="details-link"><i class="bi bi-link-45deg"></i></a>  {% endcomment %}
+                                <a href="gallery-single.html" class="details-link"><i class="bi bi-link-45deg"></i></a> 
                             </div>
                         </div>
                     </div>
@@ -90,7 +93,7 @@
                             <img src="https://i0.wp.com/m.media-amazon.com/images/I/517pfctTa9L.jpg?resize=500%2C500&ssl=1" class="img-fluid" alt="">
                             <div class="gallery-links d-flex align-items-center justify-content-center">
                                 <a href="https://i0.wp.com/m.media-amazon.com/images/I/517pfctTa9L.jpg?resize=500%2C500&ssl=1" title="Gallery 6" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>
-                                {% comment %} <a href="gallery-single.html" class="details-link"><i class="bi bi-link-45deg"></i></a>  {% endcomment %}
+                                <a href="gallery-single.html" class="details-link"><i class="bi bi-link-45deg"></i></a> 
                             </div>
                         </div>
                     </div>
@@ -100,7 +103,7 @@
                             <img src="https://i0.wp.com/m.media-amazon.com/images/I/513Y5o-DYtL.jpg?resize=500%2C500&ssl=1" class="img-fluid" alt="">
                             <div class="gallery-links d-flex align-items-center justify-content-center">
                                 <a href="https://i0.wp.com/m.media-amazon.com/images/I/513Y5o-DYtL.jpg?resize=500%2C500&ssl=1" title="Gallery 7" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>
-                                {% comment %} <a href="gallery-single.html" class="details-link"><i class="bi bi-link-45deg"></i></a>  {% endcomment %}
+                                <a href="gallery-single.html" class="details-link"><i class="bi bi-link-45deg"></i></a> 
                             </div>
                         </div>
                     </div>
@@ -110,10 +113,10 @@
                             <img src="https://i0.wp.com/m.media-amazon.com/images/I/51EDhEokzbL.jpg?resize=500%2C500&ssl=1" class="img-fluid" alt="">
                             <div class="gallery-links d-flex align-items-center justify-content-center">
                                 <a href="https://i0.wp.com/m.media-amazon.com/images/I/51EDhEokzbL.jpg?resize=500%2C500&ssl=1" title="Gallery 8" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>
-                                {% comment %} <a href="gallery-single.html" class="details-link"><i class="bi bi-link-45deg"></i></a> {% endcomment %}
+                                <a href="gallery-single.html" class="details-link"><i class="bi bi-link-45deg"></i></a>
                             </div>
                         </div>
-                    </div>
+                    </div> {% endcomment %}
                     <!-- End Gallery Item -->
                      {% comment %} <div class="col-xl-3 col-lg-4 col-md-6">
                         <div class="gallery-item h-100">
