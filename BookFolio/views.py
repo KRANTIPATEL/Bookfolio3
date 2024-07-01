@@ -1,5 +1,5 @@
 from django.http import HttpResponse,HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from .forms import UserForm
 from service.models import Service
 from Prices.models import Prices
@@ -7,55 +7,30 @@ from news.models import News
 from booksDetail.models import BooksDetail
 from django.core.paginator import Paginator
 from logindata.models import LoginDetails
+from django.contrib.sessions.models import Session
+from django.contrib import messages
+
+
 
 def aboutUs(request):
-
+    # if request.session.get('is_signin'):
+    #     return redirect('aboutus')
    
     if request.method == "GET":
         output = request.GET.get('output')
         
     return render(request,"about.html",{ 'output1': output})
         
-def signin(request):
-    error = False
-    datasignup={}
-    booksData = BooksDetail.objects.all()
 
-    try:
-        datasignin = LoginDetails.objects.all()
-        if request.method == "POST":
-            email1 = request.POST['email1']
-            pwd1 = request.POST['pwd1']
-            
-            for n in datasignin:
-                if email1 == n.login_email and pwd1 == n.login_pwd:
-                    error = True
-
-
-            if error :
-                return render(request,"gallery.html",{'booksData':booksData})
-            else:
-                return render(request,"signinpage.html",{'booksData':booksData,'error':error})
-
-                # if email1 != n.login_email or pwd1 != n.login_pwd:
-                #     return render(request,"signinpage.html",{'error':error})
-
-
-
-
-        return render(request,"signinpage.html",{'error': error})
-
-    except:
-        pass
     
 def gallery(request):
-
-    booksData = BooksDetail.objects.all()
-    # data={'booksData':booksData}
-
-
-    return render(request,"gallery.html",{'booksData':booksData})
-
+    if request.session.get('is_signin'):
+        booksData = BooksDetail.objects.all()
+        data={'booksData':booksData}
+        return render(request,'gallery.html',data)
+    else:
+        return render(request,'signinpage.html')
+    
     # return render(request,"gallery.html")
 def gallery1(request,slug):
     # newsDetail = News.objects.get(news_slug=slug)
@@ -65,9 +40,58 @@ def gallery1(request,slug):
 
 
     return render(request,"gallery1.html",data)
+
+def signin(request):
+    # error = False
+    # datasignup={}
+    # booksData = BooksDetail.objects.all()
+
+    # try:
+    #     datasignin = LoginDetails.objects.all()
+    #     if request.method == "POST":
+    #         email1 = request.POST['email1']
+    #         pwd1 = request.POST['pwd1']
+    #         count = LoginDetails.objects.filter(login_email=email1, login_password=pwd1).count()
+    #         for n in datasignin:
+    #             if email1 == n.login_email and pwd1 == n.login_pwd:
+    #                 error = True
+        #     if error :
+        #         return render(request,"gallery.html",{'booksData':booksData})
+        #     else:
+        #         return render(request,"signinpage.html",{'booksData':booksData,'error':error})
+
+        #          if email1 != n.login_email or pwd1 != n.login_pwd:
+        #             return render(request,"signinpage.html",{'error':error})
+        # return render(request,"signinpage.html",{'error': error})
+
+    # except:
+        # pass
+
+    if 'is_signin' in request.session and request.session['is_signin']:
+        return redirect('home')
+    
+    else:
+    
+        if request.method == "POST":
+            email = request.POST.get('email1')
+            password = request.POST.get('pwd1')
+            count = LoginDetails.objects.filter(login_email=email, login_pwd = password).count()
+            if count > 0:
+                request.session['is_signin'] = True
+                return redirect('home')
+            else:
+                messages.error(request, "Wrong email or password")
+                return render(request,"signinpage.html")
+            
+        return render(request, 'signinpage.html')
+
+
 def signup(request):
 
-        booksData = BooksDetail.objects.all()
+    if request.session.get('is_signin'):
+        return render(request,"index.html")
+    else:
+        # booksData = BooksDetail.objects.all()
         datasignin = LoginDetails.objects.all()
 
         if request.method == "POST":
@@ -78,19 +102,20 @@ def signup(request):
                 if email != n.login_email and pwd != n.login_pwd:
                     en = LoginDetails(login_email=email,login_pwd=pwd)
                     en.save()
-                    return render(request,"gallery.html",{'booksData':booksData})
-                
-           
-
-        
+                    # request.session['is_signin'] = True
+                    return redirect("signin")
    
-        return render(request,"signup.html",{'booksData':booksData})
+        return render(request,"signup.html")
 
-def course(request):
-    return HttpResponse("Heres Your CourseList")
 
 def services(request):
 
+    # if request.session.get('is_signin'):
+    #     return redirect('services')
+    
+    # else :
+    #     redirect("signin")
+    
     servicesdata = Service.objects.all()
     paginator =Paginator(servicesdata,2)
     pagenumber = request.GET.get('page')
@@ -118,32 +143,37 @@ def contact(request):
 
 
 def homePage(request):
-    # data = {
-    #     'title':'HomePage',
-    #     'greet':'Welcome to FirstSite',
-    #     'clist' : ["php","java","Django"],
-    #     'numbers' : [10,20,30,40,50],
-    #     'student_details' : [
-    #         {'name':'kranti','phone':'8799474999'},
-    #         {'name':'romio','phone':'4207864207'}
-    #     ]
-    # }
-    booksData = BooksDetail.objects.all()
+    status = False
 
-    newsdata = News.objects.all()
-    data = { 'newsdata':newsdata,'booksData':booksData
-    }
+    if (request.session['is_signin']):
+            status = request.session['is_signin'] 
+            booksData = BooksDetail.objects.all()
+            newsdata = News.objects.all()
+            data = { 'newsdata':newsdata,'booksData':booksData,
+                'status':status
+            }
+            return render(request,"index.html",data)
 
-    return render(request,"index.html",data)
+    else:
+            status = request.session['is_signin'] 
+            booksData = BooksDetail.objects.all()
+            newsdata = News.objects.all()
+            data = { 
+                'status':status,'booksData':booksData
+                ,'newsdata':newsdata
+            }
 
+            return render(request,"index.html",data)
+    
 def newsDetail(request,slug):
 
     newsDetail = News.objects.get(news_slug=slug)
-
     data={'newsDetail':newsDetail}
-
-
     return render(request,"newsdetail.html",data)
+
+def logout(request):
+    request.session['is_signin'] = False
+    return redirect('home')
 
 def userForm(request):
     total=0
@@ -223,15 +253,9 @@ def calculator(request):
             dimension = {'c':c,
                 'n1':n1,
                 'n2':n2
-                }
-
-
-           
-
+            }
     except:
         c="Invalid Entry"
-        
-
     
     return render(request,"calculator.html",dimension)
 
@@ -250,3 +274,5 @@ def validationForm(request):
             n2 = eval(request.POST.get('num2'))
         
     return render(request,"ValidationForm.html")
+
+

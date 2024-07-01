@@ -20,7 +20,14 @@
                 <div class="col-lg-6 text-center">
                     <h2>A Book is a gift you can open it again and again.</h2>
                     <h6>For accessing more Books</h6>
+                {% if not status %}
                     <a href="{%  url 'signin' %}" class="btn-get-started">Click here for Sign in/Sign up</a>
+                {% endif %}
+
+                {% if status %}
+                <a href="{%  url 'gallery' %}" class="btn-get-started">Go to gallery</a>
+
+                {% endif %}
                 </div>
             </div>
         </div>

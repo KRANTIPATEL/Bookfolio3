@@ -26,10 +26,12 @@ urlpatterns = [
     path('',views.homePage,name="home"),
     path('signin/',views.signin,name="signin"),
     path('signup/',views.signup,name="signup"),
+    path('logout/',views.logout,name="logout"),
+
 
     path('contact/', views.contact,name="contact"),
     path('gallery1/<slug>', views.gallery1),
-    path('gallery/', views.gallery),
+    path('gallery/', views.gallery,name="gallery"),
 
 
     path('services/', views.services,name="services"),

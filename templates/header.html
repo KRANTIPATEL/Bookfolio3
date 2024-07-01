@@ -53,22 +53,8 @@
                 <ul >
                     <li ><a class =  "{% if request.path == '/'  %}active{% endif %}" href= "{%  url 'home' %}  ">Home</a></li>
                     <li ><a class= "{% if request.path == '/aboutus/'  %} active {% endif %}" href="{%  url 'aboutus' %}">About Us</a></li>
-                    <li class="dropdown"><a href="#"><span>Gallery</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a> 
-                    <ul>
-                            <li><a href="gallery.html">Nature</a></li>
-                            <li><a href="gallery.html">People</a></li>
-                            <li><a href="gallery.html">Architecture</a></li>
-                            <li><a href="gallery.html">Animals</a></li>
-                            <li><a href="gallery.html">Sports</a></li>
-                            <li><a href="gallery.html">Travel</a></li>
-                            <li class="dropdown"><a href="#"><span>Sub Menu</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
-                                <ul> 
-                                    <li><a href="#">Sub Menu 1</a></li>
-                                    <li><a href="#">Sub Menu 2</a></li>
-                                    <li><a href="#">Sub Menu 3</a></li>
-                                </ul> 
-                             </li>
-                    </ul>
+                    <li ><a href="{% url 'gallery' %}"><span>Gallery</span> </i></a> 
+                    
                 </li> 
 
                     <li ><a class= "{% if request.path == '/services/'  %} active {% endif %}" href="{%  url 'services' %}">Services</a></li>
@@ -79,13 +65,13 @@
             </nav>
             <!-- .navbar  -->
 
-           
-
             <div class="header-social-links">
                 <a href="#" class="twitter"><i class="bi bi-twitter"></i></a> 
                 <a href="#" class="facebook"><i class="bi bi-facebook"></i></a> 
                 <a href="https://instagram.com/patel_maharshi_?igshid=YmMyMTA2M2Y=" class="instagram"><i class="bi bi-instagram"></i></a>
                 <a href="https://www.linkedin.com/in/maharshi-patel-a1012a244" class="linkedin"><i class="bi bi-linkedin"></i></i></a>
+                <a href="{% url 'logout' %}">Logout</a>
+
             </div>
             <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
             <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
