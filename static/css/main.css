@@ -1278,13 +1278,22 @@ h6 {
 .hero .btn-get-started:hover {
   background: #2cbc85;
 }
-.hero marquee{
+/* .hero marquee{
   width: 100%;
   margin-bottom: 200px;
   color: #27a776;
   background-color: white;
 
+} */
+
+/* Add this CSS to your stylesheet */
+.hero custom-marquee {
+  height: 2rem; /* Adjust the height as needed */
+  line-height: 2rem; /* Ensure text is vertically centered */
+  overflow: hidden; /* Prevent extra content from affecting layout */
+  background-color: #33302e;
 }
+
 
 @media (max-width: 768px) {
   .hero h2 {

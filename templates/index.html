@@ -3,17 +3,9 @@
 
 {% block content %}
 
-
-
-
     <!-- ======= Hero Section ======= -->
     <section id="hero" class="hero d-flex flex-column justify-content-center align-items-center" data-aos="fade" data-aos-delay="1500">
        
-        <marquee onmouseover="stop()" onmouseout="start()">
-            {% for n  in newsdata  %}
-           <a href="/newsdetail/{{n.news_slug}}"> {{n.news_title}}</a>   &nbsp &nbsp &nbsp
-            {% endfor %}
-        </marquee>
 
         <div class="container">
             <div class="row justify-content-center">
@@ -28,10 +20,20 @@
                 <a href="{%  url 'gallery' %}" class="btn-get-started">Go to gallery</a>
 
                 {% endif %}
+
                 </div>
+
+               
+            
             </div>
         </div>
     </section>
+    
+                <marquee class="custom-marquee" onmouseover="stop()" onmouseout="start()">
+                    {% for n in newsdata %}
+                        <a href="/newsdetail/{{n.news_slug}}">{{n.news_title}}</a> &nbsp &nbsp &nbsp
+                    {% endfor %}
+                </marquee>
     <!-- End Hero Section -->
    
   

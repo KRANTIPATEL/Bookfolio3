@@ -80,7 +80,7 @@ def signin(request):
                 request.session['is_signin'] = True
                 return redirect('home')
             else:
-                messages.error(request, "Wrong email or password")
+                messages.error(request, "Wrong email or password" , extra_tags='signin')
                 return render(request,"signinpage.html")
             
         return render(request, 'signinpage.html')
@@ -92,18 +92,19 @@ def signup(request):
         return render(request,"index.html")
     else:
         # booksData = BooksDetail.objects.all()
-        datasignin = LoginDetails.objects.all()
 
         if request.method == "POST":
             email = request.POST['email']
             pwd = request.POST['pwd']
 
-            for n in datasignin:
-                if email != n.login_email and pwd != n.login_pwd:
-                    en = LoginDetails(login_email=email,login_pwd=pwd)
-                    en.save()
+            if LoginDetails.objects.filter(login_email=email).exists():
+                messages.error(request, "Email already exists", extra_tags='signup')
+                return render(request, 'signup.html')
+            
+            en = LoginDetails(login_email=email,login_pwd=pwd)
+            en.save()
                     # request.session['is_signin'] = True
-                    return redirect("signin")
+            return redirect("signin")
    
         return render(request,"signup.html")
 
@@ -145,7 +146,7 @@ def contact(request):
 def homePage(request):
     status = False
 
-    if (request.session['is_signin']):
+    if 'is_signin' in request.session and request.session['is_signin']:
             status = request.session['is_signin'] 
             booksData = BooksDetail.objects.all()
             newsdata = News.objects.all()
@@ -155,7 +156,7 @@ def homePage(request):
             return render(request,"index.html",data)
 
     else:
-            status = request.session['is_signin'] 
+            # status = request.session['is_signin'] 
             booksData = BooksDetail.objects.all()
             newsdata = News.objects.all()
             data = { 
