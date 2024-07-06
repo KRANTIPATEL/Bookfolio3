@@ -9,7 +9,8 @@ from django.core.paginator import Paginator
 from logindata.models import LoginDetails
 from django.contrib.sessions.models import Session
 from django.contrib import messages
-
+from bookDB.models import bookColumn
+from cartDB.models import cartColumn
 
 
 def aboutUs(request):
@@ -25,7 +26,7 @@ def aboutUs(request):
     
 def gallery(request):
     if request.session.get('is_signin'):
-        booksData = BooksDetail.objects.all()
+        booksData = bookColumn.objects.all()
         data={'booksData':booksData}
         return render(request,'gallery.html',data)
     else:
@@ -34,7 +35,7 @@ def gallery(request):
     # return render(request,"gallery.html")
 def gallery1(request,slug):
     # newsDetail = News.objects.get(news_slug=slug)
-    booksData = BooksDetail.objects.get(book_slug = slug)
+    booksData = bookColumn.objects.get(bookDB_slug = slug)
 
     data={'booksData':booksData}
 
@@ -142,13 +143,45 @@ def contact(request):
 
     return render(request,"contact.html")
 
+def cart(request, slug=None):
+    if slug:
+        booksData2 = bookColumn.objects.get(bookDB_slug=slug)
+        if not cartColumn.objects.filter(item_title=booksData2.bookDB_title).exists():
+            change = cartColumn(
+                item_title=booksData2.bookDB_title,
+                item_imglink=booksData2.bookDB_imglink,
+                item_price=booksData2.bookDB_price,
+                item_des=booksData2.bookDB_des,
+                item_author=booksData2.bookDB_author,
+                item_releaseDate=booksData2.bookDB_releaseDate,
+                item_quantity=1  # Set initial quantity to 1
+            )
+            change.save()
+
+    CartData = cartColumn.objects.all()
+
+    return render(request, "cart.html", {'cartData': CartData})
+
+def update_cart_quantity(request):
+    if request.method == 'POST':
+        item_id = request.POST.get('item_id')
+        action = request.POST.get('action')
+
+        item = cartColumn.objects.get(id=item_id)
+        if action == 'increase':
+            item.item_quantity += 1
+        elif action == 'decrease' and item.item_quantity > 1:
+            item.item_quantity -= 1
+
+        item.save()
+        return redirect('cart')
 
 def homePage(request):
     status = False
 
     if 'is_signin' in request.session and request.session['is_signin']:
             status = request.session['is_signin'] 
-            booksData = BooksDetail.objects.all()
+            booksData = bookColumn.objects.all()
             newsdata = News.objects.all()
             data = { 'newsdata':newsdata,'booksData':booksData,
                 'status':status
@@ -157,7 +190,7 @@ def homePage(request):
 
     else:
             # status = request.session['is_signin'] 
-            booksData = BooksDetail.objects.all()
+            booksData = bookColumn.objects.all()
             newsdata = News.objects.all()
             data = { 
                 'status':status,'booksData':booksData
@@ -173,7 +206,13 @@ def newsDetail(request,slug):
     return render(request,"newsdetail.html",data)
 
 def logout(request):
-    request.session['is_signin'] = False
+
+    #logic for transfer data from one model to other
+    # olddata = BooksDetail.objects.all()
+
+    # for n in olddata:
+    #     change = bookColumn(bookDB_title = n.book_title,bookDB_imglink = n.book_imglink,bookDB_price = '25.00$',bookDB_des = n.book_des,bookDB_author= n.book_author,bookDB_releaseDate = n.book_releaseDate)
+    #     change.save()
     return redirect('home')
 
 def userForm(request):

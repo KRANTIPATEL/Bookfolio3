@@ -28,10 +28,12 @@ urlpatterns = [
     path('signin/',views.signin,name="signin"),
     path('signup/',views.signup,name="signup"),
     path('logout/',views.logout,name="logout"),
+    path('update_cart_quantity/', views.update_cart_quantity, name='update_cart_quantity'),
 
     path('contact/', views.contact,name="contact"),
     path('gallery1/<slug>', views.gallery1),
     path('gallery/', views.gallery,name="gallery"),
+    path('cart/<slug>', views.cart,name="cart"),
 
 
     path('services/', views.services,name="services"),

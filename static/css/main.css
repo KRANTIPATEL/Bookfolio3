@@ -909,6 +909,8 @@ h6 {
   background: #2cbc85;
 }
 
+
+
 .gallery-single .portfolio-description h2 {
   font-size: 26px;
   font-weight: 700;
@@ -1278,6 +1280,26 @@ h6 {
 .hero .btn-get-started:hover {
   background: #2cbc85;
 }
+
+
+.hero2 .btn-get-started2 {
+  font-family: var(--font-primary);
+  font-weight: 400;
+  font-size: 14px;
+  display: inline-block;
+  padding: 12px 40px;
+  border-radius: 4px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: 0.3s;
+  color: #fff;
+  background: var(--color-primary);
+}
+
+.hero2 .btn-get-started2:hover {
+  background: #2cbc85;
+}
+
 /* .hero marquee{
   width: 100%;
   margin-bottom: 200px;

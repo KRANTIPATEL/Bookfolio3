@@ -42,7 +42,9 @@ INSTALLED_APPS = [
     'tinymce',
     'news',
     'logindata',
-    'booksDetail'
+    'booksDetail',
+    'bookDB',
+    'cartDB'
 ]
 
 MIDDLEWARE = [
